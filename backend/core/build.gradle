@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+		maven { url 'https://repo.spring.io/snapshot' }
+		maven { url 'https://repo.spring.io/milestone' }
+    }
+    dependencies {
+		classpath 'javax.xml.bind:jaxb-api:2.1'
+		classpath 'com.sun.xml.bind:jaxb-impl:2.2.11'
+		classpath 'com.sun.xml.bind:jaxb-core:2.2.11'
+		classpath 'mysql:mysql-connector-java:5.1.6'
+	//classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.BUILD-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '1.5.9.RELEASE'
+    id 'java'
+    id 'org.flywaydb.flyway' version '5.0.7'
+}
+
+//mainClassName = "ru.kuzmin.secret.core.main.Application"
+
+//apply plugin: 'java'
+//apply plugin: 'org.springframework.boot'
+//apply plugin: 'io.spring.dependency-management'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+dependencies {
+    compile ('org.springframework.boot:spring-boot-starter-jdbc')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile ('mysql:mysql-connector-java:5.1.6')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+flyway {
+    url = 'jdbc:mysql://localhost:3306/secret'
+    user = 'root'
+    password = 'root'
+};
+
