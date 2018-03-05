@@ -1,19 +1,15 @@
 package ru.kuzmin.secret.core.entity;
 
-public class EquipType {
+public class EquipmentType extends CategoryContent {
 
     private long id;
 
     private String name;
 
-    private long parentTypeId;
-
-    private EquipType parentType;
-
-    public EquipType(long id, String name, long parentTypeId) {
+    public EquipmentType(long id, String name, Long categoryId) {
         this.id = id;
         this.name = name;
-        this.parentTypeId = parentTypeId;
+        this.parentCategoryId = categoryId;
     }
 
     public long getId() {
