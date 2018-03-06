@@ -1,15 +1,21 @@
 package ru.kuzmin.secret.core.entity;
 
-public class EquipmentType extends CategoryContent {
+import java.util.List;
+
+public class EquipmentType {
 
     private long id;
 
     private String name;
 
+    private long categoryId;
+
+    private List<EquipmentAttribute> attributes;
+
     public EquipmentType(long id, String name, Long categoryId) {
         this.id = id;
         this.name = name;
-        this.parentCategoryId = categoryId;
+        this.categoryId = categoryId;
     }
 
     public long getId() {
@@ -26,5 +32,13 @@ public class EquipmentType extends CategoryContent {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 }

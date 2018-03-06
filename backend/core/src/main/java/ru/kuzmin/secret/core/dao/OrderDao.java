@@ -5,10 +5,12 @@
  */
 package ru.kuzmin.secret.core.dao;
 
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
+
 /**
  *
  * @author Антон
  */
-public class OrderDao {
+public class OrderDao extends NamedParameterJdbcDaoSupport {
 	
 }

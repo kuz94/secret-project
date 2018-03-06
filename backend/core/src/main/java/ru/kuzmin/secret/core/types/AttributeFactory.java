@@ -6,18 +6,18 @@ import java.text.ParseException;
 
 public class AttributeFactory {
 
-    public static CommonAttribute createAttribute(DataType type, String value, Boolean nullable) throws ParseException {
+    public static CommonValue createAttribute(DataType type, String value, Boolean nullable) throws ParseException {
         switch (type) {
             case STRING:
-                return new StringAttribute(value, nullable);
+                return new StringValue(value, nullable);
             case INTEGER:
-                return new IntegerAttribute(value, nullable);
+                return new IntegerValue(value, nullable);
             case FLOAT:
-                return new FloatAttribute(value, nullable);
+                return new FloatValue(value, nullable);
             case DATE:
-                return new DateAttribute(value, nullable);
+                return new DateValue(value, nullable);
             case BOOLEAN:
-                return new BooleanAttribute(value, nullable);
+                return new BooleanValue(value, nullable);
             default:
                 throw new IllegalArgumentException("Attribute type is unknown");
         }

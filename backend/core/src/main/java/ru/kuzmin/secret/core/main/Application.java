@@ -5,11 +5,19 @@
  */
 package ru.kuzmin.secret.core.main;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  *
  * @author Антон
  */
 
+@SpringBootApplication
 public class Application {
-	
+
+    public static void main(String[] args) {
+        SpringApplication.run(null, args);
+    }
+
 }

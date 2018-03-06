@@ -1,7 +1,6 @@
 package ru.kuzmin.secret.core.bean.interfaces;
 
 import ru.kuzmin.secret.core.entity.Category;
-import ru.kuzmin.secret.core.entity.CategoryContent;
 
 import java.util.List;
 

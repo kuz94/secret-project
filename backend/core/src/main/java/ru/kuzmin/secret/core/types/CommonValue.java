@@ -3,12 +3,12 @@ package ru.kuzmin.secret.core.types;
 import java.text.ParseException;
 import java.util.Objects;
 
-public abstract class CommonAttribute<T> {
+public abstract class CommonValue<T> {
     private Boolean nullable;
 
     private T value;
 
-    public CommonAttribute(String value, Boolean nullable) throws ParseException{
+    public CommonValue(String value, Boolean nullable) throws ParseException{
         this.nullable = Objects.requireNonNull(nullable);
 
         if (!isNullable()) {

@@ -4,10 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateAttribute extends CommonAttribute<Date> {
+public class DateValue extends CommonValue<Date> {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("");
 
-    public DateAttribute(String value, Boolean nullable) throws ParseException {
+    public DateValue(String value, Boolean nullable) throws ParseException {
         super(value, nullable);
     }
 

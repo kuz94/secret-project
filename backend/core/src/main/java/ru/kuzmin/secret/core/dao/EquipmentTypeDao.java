@@ -16,14 +16,14 @@ import java.util.List;
  *
  * @author Антон
  */
-public class EquipTypeDao extends NamedParameterJdbcDaoSupport {
+public class EquipmentTypeDao extends NamedParameterJdbcDaoSupport {
     private static final String TABLE_NAME = "equip_type";
     private static final String FIELDS = "id, name";
     private static final String SELECT_TYPES = "select " + FIELDS + " from " + TABLE_NAME;
 
     private RowMapper<EquipmentType> equipTypeMapper = (rs, i) -> new EquipmentType(rs.getLong("id"), rs.getString("name"));
 
-    public EquipTypeDao(DataSource dataSource) {
+    public EquipmentTypeDao(DataSource dataSource) {
         setDataSource(dataSource);
         checkDaoConfig();
     }
@@ -35,6 +35,4 @@ public class EquipTypeDao extends NamedParameterJdbcDaoSupport {
     public EquipmentType findById() {
         return null;
     }
-
-	
 }

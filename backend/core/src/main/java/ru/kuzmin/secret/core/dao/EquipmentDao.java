@@ -5,12 +5,12 @@
  */
 package ru.kuzmin.secret.core.dao;
 
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 
 /**
  *
  * @author Антон
  */
-public class EquipDao extends JdbcDaoSupport {
+public class EquipmentDao extends NamedParameterJdbcDaoSupport {
 	
 }

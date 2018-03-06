@@ -2,9 +2,9 @@ package ru.kuzmin.secret.core.types;
 
 import java.text.ParseException;
 
-public class FloatAttribute extends CommonAttribute<Float> {
+public class FloatValue extends CommonValue<Float> {
 
-    public FloatAttribute(String value, Boolean nullable) throws ParseException {
+    public FloatValue(String value, Boolean nullable) throws ParseException {
         super(value, nullable);
     }
 

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.kuzmin.secret.core.bean.interfaces.CategoryService;
 import ru.kuzmin.secret.core.dao.CategoryDao;
 import ru.kuzmin.secret.core.entity.Category;
-import ru.kuzmin.secret.core.entity.CategoryContent;
 
 import java.util.List;
 

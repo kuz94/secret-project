@@ -1,12 +1,12 @@
 package ru.kuzmin.secret.core.entity;
 
-public class Category {
+public class User {
 
     private Long id;
 
     private final String name;
 
-    public Category(long id, String name) {
+    public User(long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -22,4 +22,5 @@ public class Category {
     public String getName() {
         return name;
     }
+
 }
