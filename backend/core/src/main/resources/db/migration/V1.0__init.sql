@@ -16,26 +16,24 @@ create table `shop` (
 create table `category` (
     `id` bigint not null auto_increment,
     `name` nvarchar(255) not null,
+    `parent_id` bigint,
 
-    primary key(`id`)
-);
+    primary key(`id`),
 
-create table `category_content` (
-    `category_id` bigint not null,
-    `content_id` bigint not null,
-    `d` int not null,
-
-    primary key(`category_id`, `content_id`),
-
-    foreign key (`category_id`)
+    foreign key (`parent_id`)
         references `category`(`id`)
+
 );
 
 create table `equip_type` (
     `id` bigint not null auto_increment,
     `name` nvarchar(255) not null,
-    
-    primary key(`id`)    
+    `category_id` bigint not null,
+
+    primary key(`id`),
+
+    foreign key (`category_id`)
+        references `category`(`id`)
 );
 
 create table `equip_attributes` (
