@@ -6,11 +6,19 @@
 package ru.kuzmin.secret.core.dao;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
+import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
 
 /**
  *
  * @author Антон
  */
+@Repository
 public class OrderDao extends NamedParameterJdbcDaoSupport {
-	
+
+    public OrderDao(DataSource dataSource) {
+        setDataSource(dataSource);
+        checkDaoConfig();
+    }
 }

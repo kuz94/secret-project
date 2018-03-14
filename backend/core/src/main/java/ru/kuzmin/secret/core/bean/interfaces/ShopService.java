@@ -1,6 +1,10 @@
 package ru.kuzmin.secret.core.bean.interfaces;
 
+import ru.kuzmin.secret.core.entity.Shop;
+
 public interface ShopService {
 
-    create()
+    Shop save(Shop shop);
+
+    void delete(Shop shop);
 }

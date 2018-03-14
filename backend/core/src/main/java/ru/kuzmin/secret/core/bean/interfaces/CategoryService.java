@@ -6,12 +6,9 @@ import java.util.List;
 
 public interface CategoryService {
 
-    long create(Category category);
+    Category save(Category category);
 
-    void update(Category category);
+    void delete(Category category);
 
-    void remove(Category category);
-
-    List<CategoryContent> getContent(Category parentCategory);
-
+    List<Category> getSubcategories(Category category);
 }

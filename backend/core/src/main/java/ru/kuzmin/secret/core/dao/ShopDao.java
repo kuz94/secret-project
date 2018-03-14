@@ -10,18 +10,21 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import ru.kuzmin.secret.core.entity.Shop;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
  * @author Антон
  */
+@Repository
 public class ShopDao extends NamedParameterJdbcDaoSupport {
 
-    private RowMapper<Shop> shopRowMapper =
+    private final RowMapper<Shop> shopRowMapper =
             (rs, i) -> new Shop(rs.getLong("id"), rs.getString("name"));
 
     public ShopDao(DataSource dataSource) {
@@ -53,15 +56,14 @@ public class ShopDao extends NamedParameterJdbcDaoSupport {
                 new MapSqlParameterSource("id", shop.getId()));
     }
 
-    public Shop loadById(long categoryId) {
+    public Optional<Shop> load(long categoryId) {
         List<Shop> shops = getNamedParameterJdbcTemplate().query(
                 "select * from `category` where `id` = :categoryId",
                 new MapSqlParameterSource("id", categoryId),
                 shopRowMapper);
-        if (shops.size() == 1) {
-            return shops.get(0);
-        } else {
+        if (shops.size() > 1) {
             throw new RuntimeException("");
         }
+        return !shops.isEmpty() ? Optional.of(shops.get(0)) : Optional.empty();
     }
 }

@@ -5,17 +5,18 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.kuzmin.secret.core.entity.Category;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
-@Component
+@Repository
 public class CategoryDao extends NamedParameterJdbcDaoSupport {
 
-    private RowMapper<Category> categoryRowMapper =
-            (rs, i) -> new Category(rs.getLong("id"), rs.getString("name"));
+    private final RowMapper<Category> categoryRowMapper =
+            (rs, i) -> new Category(rs.getLong("id"), rs.getString("name"), rs.getLong("parentId"));
 
     public CategoryDao(DataSource dataSource) {
         setDataSource(dataSource);
@@ -23,20 +24,22 @@ public class CategoryDao extends NamedParameterJdbcDaoSupport {
     }
 
     public Category insert(Category category) {
+        String sql = "intert into `category` values (:name, :parentId)";
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue("name", category.getName())
+                .addValue("parentId", category.getParentId());
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        getNamedParameterJdbcTemplate().update(
-                "intert into `category` values (:name)",
-                new MapSqlParameterSource("name", category.getName()),
-                keyHolder);
+        getNamedParameterJdbcTemplate().update(sql , parameterSource, keyHolder);
         category.setId(keyHolder.getKey().longValue());
         return category;
     }
 
     public void update(Category category) {
-        String sql = "update `category` set name = :name where id = :id";
+        String sql = "update `category` set name = :name, parent_id = :parentId where id = :id";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource()
                 .addValue("id", category.getId())
-                .addValue("name", category.getName());
+                .addValue("name", category.getName())
+                .addValue("parentId", category.getParentId());
         getNamedParameterJdbcTemplate().update(sql, parameterSource);
     }
 
@@ -46,40 +49,27 @@ public class CategoryDao extends NamedParameterJdbcDaoSupport {
                 new MapSqlParameterSource("id", category.getId()));
     }
 
-    public Category loadById(long categoryId) {
+    public Optional<Category> load(long categoryId) {
         List<Category> categories = getNamedParameterJdbcTemplate().query(
-                "select * from `category` where `id` = :categoryId",
+                "select * from `category` where `id` = :id",
                 new MapSqlParameterSource("id", categoryId),
                 categoryRowMapper);
-        if (categories.size() == 1) {
-            return categories.get(0);
-        } else {
+        if (categories.size() > 1) {
             throw new RuntimeException("");
         }
+        return !categories.isEmpty() ? Optional.of(categories.get(0)) : Optional.empty();
     }
 
-    public List<Category> loadCategoryContent(Category category) {
-        String sql = "select c.* " +
-                "from `category_tree` ct join `category` c on ct.`subcategory_id = `c.`id` " +
-                "where `category_id` = :categoryId";
-        return getNamedParameterJdbcTemplate().query(sql,
-                new MapSqlParameterSource("id", category.getId()),
+    public List<Category> loadRootCategories() {
+        return getNamedParameterJdbcTemplate().query(
+                "select * from `category` where `parent_id` is null",
                 categoryRowMapper);
     }
 
-    public void insertSubcategory(long categoryId, long subcategoryId) {
-        String sql = "insert into `category_tree`(`category_id`, `subcategory_id`) values(:categoryId, :subcategoryId)";
-        MapSqlParameterSource parameterSource = new MapSqlParameterSource()
-                .addValue("category_id", categoryId)
-                .addValue("subcategory_id", subcategoryId);
-        getNamedParameterJdbcTemplate().update(sql, parameterSource);
-    }
-
-    public void removeSubcategory(long categoryId, long subcategoryId) {
-        String sql = "delete from `category_tree` where `category_id` = :categoryId and `subcategory_id` = :subcategoryId";
-        MapSqlParameterSource parameterSource = new MapSqlParameterSource()
-                .addValue("category_id", categoryId)
-                .addValue("subcategory_id", subcategoryId);
-        getNamedParameterJdbcTemplate().update(sql, parameterSource);
+    public List<Category> loadSubcategories(Category category) {
+        return getNamedParameterJdbcTemplate().query(
+                "select * from `category` where `parent_id` = :parentId",
+                new MapSqlParameterSource("parentId", category.getId()),
+                categoryRowMapper);
     }
 }

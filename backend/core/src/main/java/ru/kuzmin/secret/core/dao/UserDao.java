@@ -10,18 +10,21 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import ru.kuzmin.secret.core.entity.User;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
  * @author Антон
  */
+@Repository
 public class UserDao extends NamedParameterJdbcDaoSupport {
 
-    private RowMapper<User> userRowMapper =
+    private final RowMapper<User> userRowMapper =
             (rs, i) -> new User(rs.getLong("id"), rs.getString("name"));
 
     public UserDao(DataSource dataSource) {
@@ -53,15 +56,14 @@ public class UserDao extends NamedParameterJdbcDaoSupport {
                 new MapSqlParameterSource("id", user.getId()));
     }
 
-    public User loadById(long categoryId) {
+    public Optional<User> load(long userId) {
         List<User> users = getNamedParameterJdbcTemplate().query(
                 "select * from `category` where `id` = :categoryId",
-                new MapSqlParameterSource("id", categoryId),
+                new MapSqlParameterSource("id", userId),
                 userRowMapper);
-        if (users.size() == 1) {
-            return users.get(0);
-        } else {
+        if (users.size() > 1) {
             throw new RuntimeException("");
         }
+        return !users.isEmpty() ? Optional.of(users.get(0)) : Optional.empty();
     }
 }

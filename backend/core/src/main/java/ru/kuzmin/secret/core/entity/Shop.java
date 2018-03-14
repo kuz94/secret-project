@@ -2,21 +2,21 @@ package ru.kuzmin.secret.core.entity;
 
 public class Shop {
 
-    private long id;
+    private Long id;
 
     private String name;
 
-    public Shop(long id, String name) {
+    public Shop(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
-    public long getId() {
-        return id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

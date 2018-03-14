@@ -6,12 +6,15 @@ public class Category {
 
     private final String name;
 
-    public Category(long id, String name) {
+    private Long parentId;
+
+    public Category(Long id, String name, Long parentId) {
         this.id = id;
         this.name = name;
+        this.parentId = parentId;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -21,5 +24,9 @@ public class Category {
 
     public String getName() {
         return name;
+    }
+
+    public Long getParentId() {
+        return parentId;
     }
 }

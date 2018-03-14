@@ -7,6 +7,7 @@ package ru.kuzmin.secret.core.dao;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 import ru.kuzmin.secret.core.entity.EquipmentType;
 
 import javax.sql.DataSource;
@@ -16,12 +17,11 @@ import java.util.List;
  *
  * @author Антон
  */
+@Repository
 public class EquipmentTypeDao extends NamedParameterJdbcDaoSupport {
-    private static final String TABLE_NAME = "equip_type";
-    private static final String FIELDS = "id, name";
-    private static final String SELECT_TYPES = "select " + FIELDS + " from " + TABLE_NAME;
 
-    private RowMapper<EquipmentType> equipTypeMapper = (rs, i) -> new EquipmentType(rs.getLong("id"), rs.getString("name"));
+    private final RowMapper<EquipmentType> equipTypeMapper =
+            (rs, i) -> new EquipmentType(rs.getLong("id"), rs.getString("name"), rs.getLong("categoryId"));
 
     public EquipmentTypeDao(DataSource dataSource) {
         setDataSource(dataSource);
@@ -29,7 +29,7 @@ public class EquipmentTypeDao extends NamedParameterJdbcDaoSupport {
     }
 
     public List<EquipmentType> findAll() {
-        return getNamedParameterJdbcTemplate().query(SELECT_TYPES, equipTypeMapper);
+        return null;// getNamedParameterJdbcTemplate().query(SELECT_TYPES, equipTypeMapper);
     }
 
     public EquipmentType findById() {
