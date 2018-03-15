@@ -30,8 +30,11 @@ public class CategoryDao extends NamedParameterJdbcDaoSupport {
                 .addValue("parentId", category.getParentId());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         getNamedParameterJdbcTemplate().update(sql , parameterSource, keyHolder);
-        category.setId(keyHolder.getKey().longValue());
-        return category;
+        return Category.builder()
+                .withId(keyHolder.getKey().longValue())
+                .withName(category.getName())
+                .withParentId(category.getParentId())
+                .build();
     }
 
     public void update(Category category) {
@@ -60,16 +63,16 @@ public class CategoryDao extends NamedParameterJdbcDaoSupport {
         return !categories.isEmpty() ? Optional.of(categories.get(0)) : Optional.empty();
     }
 
-    public List<Category> loadRootCategories() {
-        return getNamedParameterJdbcTemplate().query(
-                "select * from `category` where `parent_id` is null",
-                categoryRowMapper);
-    }
-
     public List<Category> loadSubcategories(Category category) {
-        return getNamedParameterJdbcTemplate().query(
-                "select * from `category` where `parent_id` = :parentId",
-                new MapSqlParameterSource("parentId", category.getId()),
-                categoryRowMapper);
+        if (category != null) {
+            return getNamedParameterJdbcTemplate().query(
+                    "select * from `category` where `parent_id` = :parentId",
+                    new MapSqlParameterSource("parentId", category.getId()),
+                    categoryRowMapper);
+        } else {
+            return getNamedParameterJdbcTemplate().query(
+                    "select * from `category` where `parent_id` is null",
+                    categoryRowMapper);
+        }
     }
 }

@@ -18,7 +18,6 @@ import javax.sql.DataSource;
  */
 @Repository
 public class EquipmentAttributesDao extends NamedParameterJdbcDaoSupport {
-	public static final String SELECT_ATTRIBUTES = "";
 
 	private final RowMapper<EquipmentAttribute> equipmentAttributeMapper = null;
 
@@ -26,4 +25,6 @@ public class EquipmentAttributesDao extends NamedParameterJdbcDaoSupport {
         setDataSource(dataSource);
         checkDaoConfig();
     }
+
+
 }
