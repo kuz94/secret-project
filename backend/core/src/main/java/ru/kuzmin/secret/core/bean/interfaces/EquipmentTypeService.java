@@ -14,9 +14,9 @@ public interface EquipmentTypeService {
 
     void deleteType(EquipmentType type);
 
-    Optional<EquipmentType> getByCategoty(Category category);
+    Optional<EquipmentType> loadByCategoty(Category category);
 
-    List<EquipmentAttribute> getAttributes(EquipmentType type);
+    List<EquipmentAttribute> loadAttributes(EquipmentType type);
 
     void addAttributes(List<EquipmentAttribute> attributes);
 

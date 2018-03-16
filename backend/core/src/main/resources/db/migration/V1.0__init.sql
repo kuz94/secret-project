@@ -17,11 +17,14 @@ create table `category` (
     `id` bigint not null auto_increment,
     `name` nvarchar(255) not null,
     `parent_id` bigint,
+    `type_id` bigint,
 
     primary key(`id`),
 
     foreign key (`parent_id`)
-        references `category`(`id`)
+        references `category`(`id`),
+    foreign key (`type_id`)
+        references `equip_type`(`id`)
 
 );
 
@@ -38,8 +41,8 @@ create table `equip_type` (
 
 create table `equip_attributes` (
     `id` bigint not null auto_increment,
-    `type_id` bigint not null,
     `name` nvarchar(255) not null,
+    `type_id` bigint not null,
     `data_type` int not null,
     
     primary key (`id`),
@@ -50,9 +53,9 @@ create table `equip_attributes` (
 
 create table `equip` (
     `id` bigint not null auto_increment,
-    `shop_id` bigint not null,
-    `type_id` bigint not null,
     `name` nvarchar(255) not null,
+    `type_id` bigint not null,
+    `shop_id` bigint not null,
 
     primary key (`id`),
     

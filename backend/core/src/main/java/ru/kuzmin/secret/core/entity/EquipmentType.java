@@ -1,16 +1,12 @@
 package ru.kuzmin.secret.core.entity;
 
-import java.util.List;
-
 public class EquipmentType {
 
-    private long id;
+    private Long id;
 
     private String name;
 
-    private long categoryId;
-
-    private List<EquipmentAttribute> attributes;
+    private Long categoryId;
 
     public EquipmentType(long id, String name, Long categoryId) {
         this.id = id;
@@ -20,10 +16,6 @@ public class EquipmentType {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -40,5 +32,39 @@ public class EquipmentType {
 
     public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Long id;
+
+        private String name;
+
+        private Long categoryId;
+
+        private Builder() {
+        }
+
+        public Builder withId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withCategoryId(Long categoryId) {
+            this.categoryId = categoryId;
+            return this;
+        }
+
+        public EquipmentType build() {
+            return new EquipmentType(id, name, categoryId);
+        }
     }
 }

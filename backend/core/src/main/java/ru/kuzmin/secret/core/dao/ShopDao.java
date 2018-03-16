@@ -35,7 +35,7 @@ public class ShopDao extends NamedParameterJdbcDaoSupport {
     public Shop insert(Shop shop) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         getNamedParameterJdbcTemplate().update(
-                "intert into `category` values (:name)",
+                "intert into `shop` values (:name)",
                 new MapSqlParameterSource("name", shop.getName()),
                 keyHolder);
         shop.setId(keyHolder.getKey().longValue());
@@ -43,7 +43,7 @@ public class ShopDao extends NamedParameterJdbcDaoSupport {
     }
 
     public void update(Shop shop) {
-        String sql = "update `category` set name = :name where id = :id";
+        String sql = "update `shop` set name = :name where id = :id";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource()
                 .addValue("id", shop.getId())
                 .addValue("name", shop.getName());
@@ -52,13 +52,13 @@ public class ShopDao extends NamedParameterJdbcDaoSupport {
 
     public void delete(Shop shop) {
         getNamedParameterJdbcTemplate().update(
-                "remove from `category` where id = :id",
+                "remove from `shop` where id = :id",
                 new MapSqlParameterSource("id", shop.getId()));
     }
 
     public Optional<Shop> load(long categoryId) {
         List<Shop> shops = getNamedParameterJdbcTemplate().query(
-                "select * from `category` where `id` = :categoryId",
+                "select * from `shop` where `id` = :categoryId",
                 new MapSqlParameterSource("id", categoryId),
                 shopRowMapper);
         if (shops.size() > 1) {

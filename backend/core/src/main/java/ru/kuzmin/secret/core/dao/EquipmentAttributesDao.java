@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import ru.kuzmin.secret.core.entity.EquipmentAttribute;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 /**
  *
@@ -26,5 +27,19 @@ public class EquipmentAttributesDao extends NamedParameterJdbcDaoSupport {
         checkDaoConfig();
     }
 
+    public EquipmentAttribute insert() {
+        return null;
+    }
 
+    public void update() {
+
+    }
+
+    public void delete() {
+
+    }
+
+    public List<EquipmentAttribute> load() {
+        return null;
+    }
 }

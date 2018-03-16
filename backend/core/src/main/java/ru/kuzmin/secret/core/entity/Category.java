@@ -13,16 +13,20 @@ public class Category {
     @JsonIgnore
     private Long parentId;
 
+    private Long typeId;
+
     @JsonCreator
     public Category(@JsonProperty("id") Long id,
-                    @JsonProperty("name") String name) {
-        this(id, name, null);
+                    @JsonProperty("name") String name,
+                    @JsonProperty("type") Long typeId) {
+        this(id, name, null, typeId);
     }
 
-    public Category(Long id, String name, Long parentId) {
+    public Category(Long id, String name, Long parentId, Long typeId) {
         this.id = id;
         this.name = name;
         this.parentId = parentId;
+        this.typeId = typeId;
     }
 
     public Long getId() {
@@ -41,6 +45,14 @@ public class Category {
         this.parentId = parentId;
     }
 
+    public Long getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -51,6 +63,11 @@ public class Category {
         private String name;
 
         private Long parentId;
+
+        private Long typeId;
+
+        private Builder() {
+        }
 
         public Builder withId(Long id) {
             this.id = id;
@@ -67,8 +84,13 @@ public class Category {
             return this;
         }
 
+        public Builder withTypeId(Long typeId) {
+            this.typeId = typeId;
+            return this;
+        }
+
         public Category build() {
-            return new Category(id, name, parentId);
+            return new Category(id, name, parentId, typeId);
         }
     }
 }

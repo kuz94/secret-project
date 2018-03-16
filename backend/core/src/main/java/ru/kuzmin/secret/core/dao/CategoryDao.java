@@ -24,7 +24,7 @@ public class CategoryDao extends NamedParameterJdbcDaoSupport {
     }
 
     public Category insert(Category category) {
-        String sql = "intert into `category` values (:name, :parentId)";
+        String sql = "intert into `category`(`name`, `parent_id`) values (:name, :parentId)";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource()
                 .addValue("name", category.getName())
                 .addValue("parentId", category.getParentId());

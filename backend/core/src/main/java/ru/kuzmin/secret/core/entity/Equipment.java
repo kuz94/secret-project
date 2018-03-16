@@ -1,9 +1,5 @@
 package ru.kuzmin.secret.core.entity;
 
-import ru.kuzmin.secret.core.types.CommonValue;
-
-import java.util.Map;
-
 public class Equipment {
 
     private long id;
@@ -14,8 +10,6 @@ public class Equipment {
 
     private long shopId;
 
-    private Map<EquipmentAttribute, CommonValue> attributes;
-
     public Equipment(long id, String name,  long typeId, long shopId) {
         this.id = id;
         this.name = name;
@@ -25,10 +19,6 @@ public class Equipment {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -53,5 +43,46 @@ public class Equipment {
 
     public void setTypeId(long typeId) {
         this.typeId = typeId;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Long id;
+
+        private String name;
+
+        private Long typeId;
+
+        private Long shopId;
+
+        private Builder() {
+        }
+
+        public Builder withId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withTypeId(Long typeId) {
+            this.typeId = typeId;
+            return this;
+        }
+
+        public Builder withShopId(Long shopId) {
+            this.shopId = shopId;
+            return this;
+        }
+
+        public Equipment build() {
+            return new Equipment(id, name, typeId, shopId);
+        }
     }
 }

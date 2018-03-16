@@ -33,12 +33,12 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     }
 
     @Override
-    public Optional<EquipmentType> getByCategoty(Category category) {
+    public Optional<EquipmentType> loadByCategoty(Category category) {
         return Optional.empty();
     }
 
     @Override
-    public List<EquipmentAttribute> getAttributes(EquipmentType type) {
+    public List<EquipmentAttribute> loadAttributes(EquipmentType type) {
         return null;
     }
 
