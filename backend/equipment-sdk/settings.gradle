@@ -1,0 +1,3 @@
+rootProject.name = 'equipment-sdk'
+rootProject.buildFileName = 'build.gradle.kts'
+
